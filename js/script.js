@@ -2,9 +2,9 @@
     'use strict';
 
     var saved_values = [], /* An array that contains all the items */
+        table = $("#task_list"),
         sort_flag = 1,
-        i = 0,
-        table = document.getElementById("task_list");
+        i = 0;
     
     $(document).ready(function () {
         
@@ -21,7 +21,7 @@
             /* Add the items to the table */
             for (i = 0; i < localStorage.length; i++) {
 
-                var row = table.insertRow(-1),
+                var row = table[0].insertRow(-1),
                     cell1 = row.insertCell(0),
                     cell2 = row.insertCell(1),
                     cell3 = row.insertCell(2);
@@ -59,7 +59,7 @@
         }
         
         /* Adding another table row with cells for new item */
-        var row = table.insertRow(-1),
+        var row = table[0].insertRow(-1),
             cell1 = row.insertCell(0),
             cell2 = row.insertCell(1),
             cell3 = row.insertCell(2),
@@ -76,7 +76,7 @@
         /* Adding a checkbox */
         var checkbox = document.createElement("input");
         checkbox.type = "checkbox";
-        checkbox.id = values[3].toString;
+        checkbox.id = values[3];
         checkbox.classList.add("boxes");
         cell3.appendChild(checkbox);
         
@@ -88,6 +88,30 @@
         inputList[1].value = "";
 
         saved_values.push(values);
+        
+    });
+    
+    $('#task_list').on('click', '.boxes', function() {
+        
+        var boxes_list = document.getElementsByClassName('boxes'),
+            index = 0,
+            i = 0;
+
+        debugger;
+        /* Finding the index of clicked checkbox */
+        for (i = 0; i < boxes_list.length; i++) {
+            if (boxes_list[i].id === this.id) {
+                index = i;
+            }
+        }
+
+        if (this.checked === true) {
+            saved_values[index][2] = true;
+        } else {
+            saved_values[index][2] = false;
+        }
+
+        localStorage.setItem(saved_values[index][3], JSON.stringify(saved_values[index]));
         
     });
     
