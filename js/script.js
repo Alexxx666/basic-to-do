@@ -1,9 +1,52 @@
 (function ($) {
-    
-    var saved_values = [], /* An array that will contain all the items */
+    'use strict';
+
+    var saved_values = [], /* An array that contains all the items */
         sort_flag = 1,
-        i = 0;
-    var table = document.getElementById("task_list");
+        i = 0,
+        table = document.getElementById("task_list");
+    
+    $(document).ready(function () {
+        
+        if (localStorage.length > 0) {
+
+            /* Retrieve values from localStorage */
+            for (i = 0; i < localStorage.length; i++) {
+                saved_values[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            }
+
+            /* Sort them according to their adding date */
+            saved_values.sort(sortDatesUp);
+
+            /* Add the items to the table */
+            for (i = 0; i < localStorage.length; i++) {
+
+                var row = table.insertRow(-1),
+                    cell1 = row.insertCell(0),
+                    cell2 = row.insertCell(1),
+                    cell3 = row.insertCell(2);
+
+                cell1.innerHTML = saved_values[i][0];
+                cell2.innerHTML = saved_values[i][1];
+
+                /* Adding checkbox */
+                var checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.id = saved_values[i][3];
+                checkbox.classList.add("boxes");
+
+                /* If the item has been marked as done */
+                if (saved_values[i][2] === true) {
+                    checkbox.checked = true;
+                }
+
+                cell3.appendChild(checkbox);
+
+            }
+
+        }
+        
+    });
     
     $("#new_task").click(function () {
         
@@ -48,6 +91,22 @@
         
     });
     
-    
+    /* Function that helps to sort the array according to date of additions in ascending order */
+    function sortDatesUp(a, b) {
+        if (a[3] === b[3]) {
+            return 0;
+        } else {
+            return (a[3] < b[3]) ? -1 : 1;
+        }
+    }
+
+    /* Function that helps to sort the array according to date of additions in descending order */
+    function sortDatesDown(a, b) {
+        if (a[3] === b[3]) {
+            return 0;
+        } else {
+            return (a[3] > b[3]) ? -1 : 1;
+        }
+    }
     
 }(jQuery));
