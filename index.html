@@ -4,23 +4,47 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>Basic Template</title>
+    <title>Basic To-Do List</title>
     
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700italic" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <div id="main">
-        <h1>This is a basic template</h1>
-    </div>
+    <header>
+        <h1>Amazing To-Do&nbsp;List</h1>
+    </header>
     
+    <table id="task_list">
+        <tr id="head_row">
+            <td id="title_head" width="30%">
+                <img src="img/arrow-down.svg">
+                Title
+            </td>
+            <td width="60%">Task</td>
+            <td width="10%">Done?</td>
+        </tr>
+    </table>
+    
+    <form>
+        <div class="wrapper">
+            <label for="task_title">Title:<br></label>
+            <input type="text" name="task_title" class="control_input"><br><br>
+        </div>
+        <div class="wrapper">
+            <label for="thing_to_do">Task:<br></label>
+            <input type="text" name="thing_to_do" class="control_input"><br><br>
+        </div>
+        <button type="button" id="new_task">Add new task
+        </button><button type="button" id="update_task">Update selected
+        </button><button type="button" id="remove_task">Remove selected</button>
+    </form> 
+    
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/script.js"></script>
-    <script>
-        
-    </script>
 
 </body>
 

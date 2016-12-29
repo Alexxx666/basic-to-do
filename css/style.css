@@ -1,14 +1,144 @@
 body {
-    margin: 0;
     padding: 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    text-align: center;
-}
-
-#main {
-    width: 90%;
-    max-width: 1024px;
     margin: 0 auto;
+    width: 100%;
+    max-width: 760px;
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    color: #434343;
+}
+
+header {
+    background-color: #434343;
+    color: white;
+    padding: 1em 0;
+}
+
+header h1 {
+    text-align: center;
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#head_row td {
+    background-color: #F8F8F8;
+}
+
+tr td {
+    padding: .5em;
+    background-color: #F5F9FC;
+    border: 1px solid white;
+}
+
+#title_head {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Chrome/Safari/Opera */
+    -khtml-user-select: none;    /* Konqueror */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+#title_head img {
+    width: 1em;
+    height: auto;
+    vertical-align: middle;
+}
+
+#title_head:hover {
+    background: lightgray;
+}
+
+tr td:first-child, tr td:last-child, #head_row {
+    text-align: center;
+    font-weight: bold;
+}
+
+#title_head:hover, button:hover {
+    cursor: pointer;
+}
+
+form {
+    padding: 1em 0;
+}
+
+.control_input {
+    box-sizing: border-box;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+    color: #515E67;
+    padding-left: 5px;
+    height: 2em;
+    width: 100%;
+}
+
+.wrapper {
+    float: left;
+}
+
+button
+{
+    font-family: Arial, serif;
+    font-size: 1.2em;
+    font-weight: bold;
+	text-transform: uppercase;
+	color: white;
+    width: 32%;
+    padding: .5em 0;
+	background-color: #FF9740;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	-webkit-transition: all 150ms ease;
+	transition: all 150ms ease;
+}
+
+#new_task,
+#update_task {
+    margin-right: 2%;
+}
+
+button:active
+{
+	color: white;
+	-webkit-transform: translateY(3px);
+	transform: translateY(3px);
+	-webkit-animation: none;
+	animation: none;
+}
+
+form .wrapper:first-child {
+    width: 25%;
+}
+
+form .wrapper:nth-child(2) {
+    width: calc(75% - .5em); 
+    padding-left: .5em;
+}
+
+@media (max-width: 680px) {
+
+    #new_task,
+    #update_task {
+        margin-right: auto;
+    }
+    
+    button {
+        display: block;
+        float: none;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+    
+    form .wrapper:first-child, form .wrapper:nth-child(2) {
+        float: none;
+        padding: 0;
+        width: 90%;
+        margin: 0 auto;
+    }
 }
