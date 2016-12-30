@@ -25,6 +25,8 @@
                     cell1 = row.insertCell(0),
                     cell2 = row.insertCell(1),
                     cell3 = row.insertCell(2);
+                
+                row.className = "data_row";
 
                 cell1.innerHTML = saved_values[i][0];
                 cell2.innerHTML = saved_values[i][1];
@@ -72,6 +74,8 @@
         values[1] = inputList[1].value; /* Task description */
         values[2] = false; /* Whether the task has been done */
         values[3] = Date.now(); /* Time of adding the item which will also be used as key */
+        
+        row.className = "data_row";
         
         cell1.innerHTML = values[0];
         cell2.innerHTML = values[1];
@@ -181,6 +185,48 @@
                 rows[i + 1].children[2].children[0].checked = false;
             }
             
+        }
+        
+    });
+    
+    $("#update_task").click(function () {
+       
+        var rows = $(".data_row"),
+            change_flag = 0,
+            title_change = 0,
+            task_change = 0;
+        
+        if(rows.length === 0) {
+            alert("There are no items in the list!");
+            return;
+        }
+        
+        for(i = 0; i < rows.length; i++) {
+            
+            /* Title is changed */
+            if(rows[i].children[0].innerText !== saved_values[i][0]) {
+                saved_values[i][0] = rows[i].children[0].innerText;
+                title_change = 1;
+            } 
+            
+            /* Task text changed */
+            if(rows[i].children[1].innerText !== saved_values[i][1]) {
+                saved_values[i][1] = rows[i].children[1].innerText;
+                task_change = 1;
+            }
+            
+            if(title_change === 1 || task_change === 1) {
+                localStorage.setItem(saved_values[i][3], JSON.stringify(saved_values[i]));
+                title_change = 0;
+                task_change = 0;
+                change_flag = 1;
+            }
+        }
+        
+        if(change_flag === 1) {
+            alert("Edited fields has been updated!");
+        } else {
+            alert("There has been no changes to the data!");
         }
         
     });
