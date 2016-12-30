@@ -28,6 +28,9 @@
 
                 cell1.innerHTML = saved_values[i][0];
                 cell2.innerHTML = saved_values[i][1];
+                
+                $(cell1).attr("contentEditable", "true");
+                $(cell2).attr("contentEditable", "true");
 
                 /* Adding checkbox */
                 var checkbox = document.createElement("input");
@@ -72,6 +75,9 @@
         
         cell1.innerHTML = values[0];
         cell2.innerHTML = values[1];
+        
+        $(cell1).attr("contentEditable", "true");
+        $(cell2).attr("contentEditable", "true");
 
         /* Adding a checkbox */
         var checkbox = document.createElement("input");
@@ -94,8 +100,7 @@
     $('#task_list').on('click', '.boxes', function() {
         
         var boxes_list = $(".boxes"),
-            index = 0,
-            i = 0;
+            index = 0;
         
         /* Finding the index of clicked checkbox */
         for (i = 0; i < boxes_list.length; i++) {
@@ -116,8 +121,7 @@
     
     $("#remove_task").click(function () {
         
-        var boxes_list = $('.boxes'),
-            i = 0;
+        var boxes_list = $('.boxes');
 
         if (boxes_list.length === 0) {
             alert("Nothing to delete!");
@@ -138,7 +142,45 @@
         /* if we remove the last element and sort order is not default */
         if(boxes_list.length === 0) {
             sort_flag = 1;
-            document.querySelector("#title_head img").src = "img/arrow-down.svg";
+            $("#title_head img").attr("src", "img/arrow-down.svg");
+        }
+        
+    });
+    
+    $("#title_head").click(function () {
+        
+        if($('.boxes').length === 0) {
+            alert("Nothing to sort!");
+            return;
+        }
+        
+        if (sort_flag === 2) {
+            saved_values.sort(sortDatesUp);
+            sort_flag = 1;
+            $("#title_head img").attr("src", "img/arrow-down.svg");
+        } else {
+            saved_values.sort(sortDatesDown);
+            sort_flag = 2;
+            $("#title_head img").attr("src", "img/arrow-up.svg");
+        }
+
+        /* Rewrite the table */
+
+        var rows = $("tr");
+
+        for (i = 0; i < saved_values.length; i++) {
+            rows[i + 1].children[0].innerHTML = saved_values[i][0];
+            rows[i + 1].children[1].innerHTML = saved_values[i][1];
+
+            /* Only ids and checked states of checkboxes are changed */
+            rows[i + 1].children[2].children[0].id = saved_values[i][3];
+            
+            if (saved_values[i][2] === true) {
+                rows[i + 1].children[2].children[0].checked = true;
+            } else {
+                rows[i + 1].children[2].children[0].checked = false;
+            }
+            
         }
         
     });
