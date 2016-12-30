@@ -93,11 +93,10 @@
     
     $('#task_list').on('click', '.boxes', function() {
         
-        var boxes_list = document.getElementsByClassName('boxes'),
+        var boxes_list = $(".boxes"),
             index = 0,
             i = 0;
-
-        debugger;
+        
         /* Finding the index of clicked checkbox */
         for (i = 0; i < boxes_list.length; i++) {
             if (boxes_list[i].id === this.id) {
@@ -112,6 +111,35 @@
         }
 
         localStorage.setItem(saved_values[index][3], JSON.stringify(saved_values[index]));
+        
+    });
+    
+    $("#remove_task").click(function () {
+        
+        var boxes_list = $('.boxes'),
+            i = 0;
+
+        if (boxes_list.length === 0) {
+            alert("Nothing to delete!");
+            return;
+        }
+
+        /* Iterating in the reverse order */
+        for (i = boxes_list.length - 1; i >= 0; i--) {
+            if (boxes_list[i].checked === true) {
+
+                localStorage.removeItem(saved_values[i][3]);
+                saved_values.splice(i, 1);
+                boxes_list[i].parentNode.parentNode.remove();
+
+            }
+        }
+        
+        /* if we remove the last element and sort order is not default */
+        if(boxes_list.length === 0) {
+            sort_flag = 1;
+            document.querySelector("#title_head img").src = "img/arrow-down.svg";
+        }
         
     });
     
